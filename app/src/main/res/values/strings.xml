@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RunTracker</string>
+    <string name="steps">Steps:</string>
+    <string name="runtracker">RunTracker</string>
+    <string name="kcal">kcal:</string>
+    <string name="save">save</string>
+    <string name="reset">reset</string>
+    <string name="running_overview">running overview</string>
+</resources>
