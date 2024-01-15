@@ -20,6 +20,9 @@ import android.widget.TextView;
 import com.runtracker.R;
 import com.runtracker.service.TrackerService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager sensorManager;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView kcalTextView;
     private Button resetBtn;
     private Button saveBtn;
+    private Button runningOverviewBtn;
     private int stepCount = 0;
     TrackerService trackerService;
     boolean isBound = false;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         kcalTextView = findViewById(R.id.kcal_textview);
         resetBtn = findViewById(R.id.reset_button);
         saveBtn = findViewById(R.id.save_button);
+        runningOverviewBtn = findViewById(R.id.running_overview_button);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -56,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View v) {
                 stepsTextView.setText("0");
                 kcalTextView.setText("0");
+                stepCount = 0;
+                timerStarted = false;
                 if (isBound) trackerService.timerStop();
             }
         });
@@ -64,12 +71,41 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v) {
                 if (isBound) {
-                    Log.d("TIMER STOPP", String.valueOf(trackerService.timerStop()));
-                    //saveBtn.setText();
+                    String kcalText = kcalTextView.getText().toString();
+                    kcalText = kcalText.replace(',', '.');
+                    double kcalValue = Double.parseDouble(kcalText);
+                    if (Integer.parseInt(String.valueOf(stepsTextView.getText())) > 0 &&
+                            kcalValue > 0) {
+                        Intent intent = new Intent(MainActivity.this, RunningOverviewActivity.class);
+                        intent.putExtra("date", new SimpleDateFormat("dd.MM.yy").format(new Date()));
+                        intent.putExtra("steps", stepsTextView.getText());
+                        intent.putExtra("kcal", kcalTextView.getText());
+                        intent.putExtra("time",  formatTime((long) trackerService.timerStop()));
+                        resetBtn.performClick();
+                        startActivity(intent);
+                    }
                 }
             }
         });
+
+        runningOverviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RunningOverviewActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+    public String formatTime(long totalMillis) {
+        long hours = totalMillis / 3600000;
+        long minutes = (totalMillis % 3600000) / 60000;
+        long seconds = (totalMillis % 60000) / 1000;
+        long millis = totalMillis % 1000;
+
+        return String.format("%02d:%02d:%02d.%03d", hours, minutes, seconds, millis);
+    }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -80,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             stepsTextView.setText(String.valueOf((int) event.values[0] - stepCount));
             if (isBound) kcalTextView.setText(
-                    String.valueOf(
+                    String.format("%.2f",
                             trackerService.calculateKcal((int) event.values[0] - stepCount)
                     )
             );

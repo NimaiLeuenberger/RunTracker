@@ -29,7 +29,7 @@ public class TrackerService extends Service {
     }
 
     public double timerStop() {
-        double elapsedTime = ((double) (System.currentTimeMillis() - startTime) / 1000);
+        double elapsedTime = ((double) (System.currentTimeMillis() - startTime));
         startTime = 0;
         return elapsedTime;
     }

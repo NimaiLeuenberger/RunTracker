@@ -6,4 +6,9 @@
     <string name="save">save</string>
     <string name="reset">reset</string>
     <string name="running_overview">running overview</string>
+    <string name="running_overview_label">Running overview</string>
+    <string name="date">Date</string>
+    <string name="steps_table">Steps</string>
+    <string name="kcal_table">Kcal</string>
+    <string name="time">Time</string>
 </resources>

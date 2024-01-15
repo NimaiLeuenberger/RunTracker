@@ -4,6 +4,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".activity.RunningOverviewActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+        android:id="@+id/banner_textview"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="@string/runtracker"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:background="#ffe6cc"
+        android:textColor="#2d2d2d" />
+        <TextView
+            android:id="@+id/running_overview_label_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/running_overview_label"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:textColor="#2d2d2d"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"/>
+
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/table_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="0,1,2,3"
+            android:gravity="center">
+            <TableRow
+                android:background="@drawable/border"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/date"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_column="0"
+                    android:background="@drawable/border"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#2d2d2d"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/steps_table"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"                    android:layout_column="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="#2d2d2d"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/kcal_table"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_column="2"
+                    android:textColor="#2d2d2d"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/time"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginRight="1dp"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_column="2"
+                    android:textColor="#2d2d2d"
+                    />
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
