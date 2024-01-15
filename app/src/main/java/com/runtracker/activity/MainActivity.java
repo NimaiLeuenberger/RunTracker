@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor stepCounterSensor;
     private TextView stepsTextView;
     private TextView kcalTextView;
+    private Button resetBtn;
     private int stepCount = 0;
     TrackerService trackerService;
     boolean isBound = false;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         stepsTextView = findViewById(R.id.steps_textview);
         kcalTextView = findViewById(R.id.kcal_textview);
+        resetBtn = findViewById(R.id.reset_button);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -45,6 +47,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } else {
             stepsTextView.setText("Step sensor not found!");
         }
+
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stepsTextView.setText("0");
+                kcalTextView.setText("0");
+                if (isBound) trackerService.timerStop();
+            }
+        });
     }
 
     @Override
