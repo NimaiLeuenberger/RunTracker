@@ -27,9 +27,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView stepsTextView;
     private TextView kcalTextView;
     private Button resetBtn;
+    private Button saveBtn;
     private int stepCount = 0;
     TrackerService trackerService;
     boolean isBound = false;
+    boolean timerStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +41,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         stepsTextView = findViewById(R.id.steps_textview);
         kcalTextView = findViewById(R.id.kcal_textview);
         resetBtn = findViewById(R.id.reset_button);
+        saveBtn = findViewById(R.id.save_button);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if (stepCounterSensor != null) {
-            sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_UI);
+            sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_FASTEST);
         } else {
             stepsTextView.setText("Step sensor not found!");
         }
@@ -54,6 +57,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 stepsTextView.setText("0");
                 kcalTextView.setText("0");
                 if (isBound) trackerService.timerStop();
+            }
+        });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isBound) {
+                    Log.d("TIMER STOPP", String.valueOf(trackerService.timerStop()));
+                    //saveBtn.setText();
+                }
             }
         });
     }
@@ -71,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             trackerService.calculateKcal((int) event.values[0] - stepCount)
                     )
             );
+            if (Integer.valueOf(String.valueOf(stepsTextView.getText())) > 0 && !timerStarted && isBound) {
+                trackerService.timerStart();
+                timerStarted = true;
+            }
         }
     }
 
@@ -82,13 +99,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        //sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(this);
+        //sensorManager.unregisterListener(this);
     }
 
     private ServiceConnection connection = new ServiceConnection() {
