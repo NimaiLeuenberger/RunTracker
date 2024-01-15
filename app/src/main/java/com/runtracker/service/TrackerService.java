@@ -2,15 +2,35 @@ package com.runtracker.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 
 public class TrackerService extends Service {
-    public TrackerService() {
+    private final IBinder binder = new LocalBinder();
+    private long startTime = 0;
+
+    public class LocalBinder extends Binder {
+        public TrackerService getService() {
+            return TrackerService.this;
+        }
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return binder;
+    }
+
+    public double calculateKcal(int steps) {
+        return steps * 0.05;
+    }
+
+    public void timerStart() {
+        this.startTime = System.currentTimeMillis();
+    }
+
+    public double timerStop() {
+        double elapsedTime = ((double) (System.currentTimeMillis() - startTime) / 1000);
+        startTime = 0;
+        return elapsedTime;
     }
 }
