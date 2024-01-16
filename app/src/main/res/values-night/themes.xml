@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.RunTracker" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#ffe6cc</item>
+        <item name="colorPrimaryDark">#ffd3a1</item>
     </style>
 </resources>

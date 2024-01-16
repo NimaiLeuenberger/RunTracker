@@ -2,8 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.RunTracker" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#ffe6cc</item>
+        <item name="colorPrimaryDark">#ffd3a1</item>
     </style>
 
     <style name="Theme.RunTracker" parent="Base.Theme.RunTracker" />
+    <style name="Button.White" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">#ffd3a1</item>
+    </style>
 </resources>

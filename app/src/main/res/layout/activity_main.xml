@@ -79,22 +79,28 @@
                     android:layout_height="40dp"
                     android:text="@string/reset"
                     android:background="@drawable/button_background"
-                    android:layout_margin="4dp"/>
+                    android:backgroundTint="#ffd3a1"
+                    android:layout_margin="4dp"
+                    android:textColor="@color/black"/>
                 <Button
                     android:id="@+id/save_button"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:background="@drawable/button_background"
+                    android:backgroundTint="#ffd3a1"
                     android:text="@string/save"
-                    android:layout_margin="4dp"/>
+                    android:layout_margin="4dp"
+                    android:textColor="@color/black"/>
             </LinearLayout>
             <Button
                 android:id="@+id/running_overview_button"
                 android:layout_width="208dp"
                 android:layout_height="40dp"
                 android:background="@drawable/button_background"
+                android:backgroundTint="#ffd3a1"
                 android:text="@string/running_overview"
-                android:layout_margin="4dp"/>
+                android:layout_margin="4dp"
+                android:textColor="@color/black"/>
 
         </LinearLayout>
     </LinearLayout>
